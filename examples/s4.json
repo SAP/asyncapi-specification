@@ -1,0 +1,269 @@
+{
+  "asyncapi": "2.0.0",
+  "x-sap-catalog-spec-version": "1.0",
+  "x-sap-application-namespace": "sap.s4",
+  "x-sap-ord-id": "sap.s4:eventResource:EventsFromS4:v1",
+  "x-sap-shortText": "Add your short description here (for Business Accelerator Hub)",
+  "info": {
+    "title": "Events from SAP S/4HANA",
+    "version": "1.0.0",
+    "description": "This is an event type catalog from an event provider of type SAP S/4HANA"
+  },
+  "channels": {
+    "sap/s4/beh/businesspartner/v1/BusinessPartner/Changed/v1": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/sap_s4_beh_businesspartner_v1_BusinessPartner_Changed_v1"
+        }
+      }
+    },
+    "sap/s4/beh/salesorder/v1/SalesOrder/Changed/v1": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/sap_s4_beh_salesorder_v1_SalesOrder_Changed_v1"
+        }
+      }
+    },
+    "sap/s4/beh/salesorder/v1/SalesOrder/Created/v1": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/sap_s4_beh_salesorder_v1_SalesOrder_Created_v1"
+        }
+      }
+    },
+    "sap/s4/beh/salesorder/v1/SalesOrder/Deleted/v1": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/sap_s4_beh_salesorder_v1_SalesOrder_Deleted_v1"
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "sap_s4_beh_businesspartner_v1_BusinessPartner_Changed_v1": {
+        "name": "sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1",
+        "x-sap-event-source": "/default/sap.s4.beh/{instanceId}",
+        "x-sap-event-source-parameters": {
+          "instanceId": {
+            "description": "The S/4 system and client id.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1"
+            },
+            "source": {
+              "const": "/default/sap.s4.beh/ER9CLNT001"
+            },
+            "datacontenttype": {
+              "const": "application/json"
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap_s4_beh_businesspartner_v1_BusinessPartner_Changed_v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/CloudEventContext"
+          }
+        ]
+      },
+      "sap_s4_beh_salesorder_v1_SalesOrder_Changed_v1": {
+        "name": "sap.s4.beh.salesorder.v1.SalesOrder.Changed.v1",
+        "x-sap-event-source": "/default/sap.s4.beh/{instanceId}",
+        "x-sap-event-source-parameters": {
+          "instanceId": {
+            "description": "The S/4 system and client id.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.s4.beh.salesorder.v1.SalesOrder.Changed.v1"
+            },
+            "source": {
+              "const": "/default/sap.s4.beh/ER9CLNT001"
+            },
+            "datacontenttype": {
+              "const": "application/json"
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap_s4_beh_salesorder_v1_SalesOrder_Changed_v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/CloudEventContext"
+          }
+        ]
+      },
+      "sap_s4_beh_salesorder_v1_SalesOrder_Created_v1": {
+        "name": "sap.s4.beh.salesorder.v1.SalesOrder.Created.v1",
+        "x-sap-event-source": "/default/sap.s4.beh/{instanceId}",
+        "x-sap-event-source-parameters": {
+          "instanceId": {
+            "description": "The S/4 system and client id.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.s4.beh.salesorder.v1.SalesOrder.Created.v1"
+            },
+            "source": {
+              "const": "/default/sap.s4.beh/ER9CLNT001"
+            },
+            "datacontenttype": {
+              "const": "application/json"
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap_s4_beh_salesorder_v1_SalesOrder_Created_v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/CloudEventContext"
+          }
+        ]
+      },
+      "sap_s4_beh_salesorder_v1_SalesOrder_Deleted_v1": {
+        "name": "sap.s4.beh.salesorder.v1.SalesOrder.Deleted.v1",
+        "x-sap-event-source": "/default/sap.s4.beh/{instanceId}",
+        "x-sap-event-source-parameters": {
+          "instanceId": {
+            "description": "The S/4 system and client id.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.s4.beh.salesorder.v1.SalesOrder.Deleted.v1"
+            },
+            "source": {
+              "const": "/default/sap.s4.beh/ER9CLNT001"
+            },
+            "datacontenttype": {
+              "const": "application/json"
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap_s4_beh_salesorder_v1_SalesOrder_Deleted_v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/CloudEventContext"
+          }
+        ]
+      }
+    },
+    "schemas": {
+      "sap_s4_beh_businesspartner_v1_BusinessPartner_Changed_v1": {
+        "type": "object",
+        "properties": {
+          "BusinessPartner": {
+            "description": "# Definition\r\n\r\nKey identifying a **business partner** in the SAP system. The key is unique within a client.",
+            "type": "string"
+          }
+        }
+      },
+      "sap_s4_beh_salesorder_v1_SalesOrder_Changed_v1": {
+        "type": "object",
+        "properties": {
+          "SalesOrder": {
+            "type": "string"
+          }
+        }
+      },
+      "sap_s4_beh_salesorder_v1_SalesOrder_Created_v1": {
+        "type": "object",
+        "properties": {
+          "SalesOrder": {
+            "type": "string"
+          }
+        }
+      },
+      "sap_s4_beh_salesorder_v1_SalesOrder_Deleted_v1": {
+        "type": "object",
+        "properties": {
+          "SalesOrder": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "messageTraits": {
+      "CloudEventContext": {
+        "headers": {
+          "type": "object",
+          "properties": {
+            "specversion": {
+              "description": "The version of the CloudEvents specification which the event uses. This enables the interpretation of the context.",
+              "type": "string",
+              "const": "1.0"
+            },
+            "type": {
+              "description": "Type of occurrence which has happened. Often this property is used for routing, observability, policy enforcement, etc.",
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "description": "This describes the event producer.",
+              "type": "string",
+              "format": "uri-reference"
+            },
+            "subject": {
+              "description": "The subject of the event in the context of the event producer (identified by source).",
+              "type": "string",
+              "minLength": 1
+            },
+            "id": {
+              "description": "ID of the event.",
+              "type": "string",
+              "minLength": 1,
+              "examples": [
+                "QgEK7wzuHtqdhJwqCS+VOA=="
+              ]
+            },
+            "time": {
+              "description": "Timestamp of when the occurrence happened. Must adhere to RFC 3339.",
+              "type": "string",
+              "format": "date-time",
+              "examples": [
+                "2018-04-05T17:31:00Z"
+              ]
+            },
+            "datacontenttype": {
+              "description": "Describe the data encoding format",
+              "type": "string",
+              "const": "application/json"
+            }
+          },
+          "required": [
+            "id",
+            "specversion",
+            "source",
+            "type"
+          ]
+        }
+      }
+    }
+  }
+}

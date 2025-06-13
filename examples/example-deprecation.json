@@ -1,0 +1,187 @@
+{
+  "asyncapi": "2.0.0",
+  "x-sap-catalog-spec-version": "1.2",
+  "x-sap-application-namespace": "sap.s4",
+  "x-sap-ord-id": "sap.s4:eventResource:DeprecationExample:v1",
+  "x-sap-shortText": "Add your short description here (for Business Accelerator Hub)",
+  "x-sap-stateInfo": {
+    "state": "DEPRECATED",
+    "deprecationDate": "2022-04-30",
+    "decommissionedDate": "2023-04-30",
+    "link": "https://app.sap.com/release-notes/2204"
+  },
+  "info": {
+    "title": "Example AsyncAPI specification for SAP ecosystem document demonstrating deprecation",
+    "version": "1.3.0",
+    "description": "This is an example event catalog document that covers a Candidate Event from an event provider"
+  },
+  "channels": {
+    "sap.odm.finance.costobject.CostCenter.Created.v1": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/sap_odm_finance_costobject_CostCenter_Created_v1"
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "sap_odm_finance_costobject_CostCenter_Created_v1": {
+        "name": "sap.odm.finance.costobject.CostCenter.Created.v1",
+        "x-sap-stateInfo": {
+          "state": "DEPRECATED",
+          "deprecationDate": "2022-04-30",
+          "decommissionedDate": "2023-04-30",
+          "link": "https://app.sap.com/release-notes/2204"
+        },
+        "x-sap-event-version": "1.2.1",
+        "x-sap-event-characteristics": {
+          "instance-identification": "key-subject", 
+          "sequencing": "instance-precedence", 
+          "state-transfer": "full-after-image" 
+        },
+        "x-sap-event-source": "/default/sap.s4.beh/{instanceId}",
+        "x-sap-event-source-parameters": {
+          "instanceId": {
+            "description": "The S/4 system and client id.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "region": {
+            "description": "The availability region of the system.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.odm.finance.costobject.CostCenter.Created.v1"
+            },
+            "source": {
+              "const": "/default/sap.s4.beh/ER9CLNT001"
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap_odm_finance_costobject_CostCenter_Created_v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/CloudEventsContext"
+          }
+        ]
+      }
+    },
+    "schemas": {
+      "sap_odm_finance_costobject_CostCenter_Created_v1": {
+        "description": "The CostCenter.Created.v1 payload. The JSON Schema here is INCOMPLETE",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "x-key": ["id"],
+        "additionalProperties": true
+      }
+    },
+    "messageTraits": {
+      "CloudEventsContext": {
+        "x-sap-event-spec-version": "2.0",
+        "x-sap-event-source": "/{region}/sap.s4/{instanceId}",
+        "headers": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "Identifies the event.",
+              "type": "string",
+              "examples": [
+                "6925d08e-bc19-4ad7-902e-bd29721cc69b"
+              ]
+            },
+            "specversion": {
+              "description": "The version of the CloudEvents specification which the event uses.",
+              "type": "string",
+              "const": "1.0"
+            },
+            "source": {
+              "description": "Identifies the instance the event originated in.",
+              "type": "string",
+              "format": "uri-reference",
+              "examples": [
+                "/default/sap.s4.beh/ER9CLNT001",
+                "/eu/sap.billing.sb/91dec60d-9757-4e2c-b9e5-21da10016fe9"
+              ]
+            },
+            "type": {
+              "description": "Describes the type of the event related to the source the event originated in.",
+              "type": "string",
+              "examples": [
+                "sap.dsc.FreightOrder.Arrived.v1",
+                "sap.billing.sb.Subscription.Canceled.v1"
+              ]
+            },
+            "subject": {
+              "description": "Describes the subject of the event in the context of the source the event originated in (e.g., the id of the business object the event is about).",
+              "type": "string",
+              "examples": [
+                "ce307052-75a0-4a8f-a961-ebf21669bb80",
+                "urn:epc:tag:sgtin-96:1.7332402.026591.1234567890"
+              ]
+            },
+            "datacontenttype": {
+              "description": "Content type of the event data.",
+              "type": "string",
+              "const": "application/json"
+            },
+            "dataschema": {
+              "description": "Identifies the schema that the event data adheres to.",
+              "type": "string",
+              "format": "uri",
+              "examples": [
+                "http://example.com/event/sap.billing.sb.Subscription.Canceled/v1.2.0"
+              ]
+            },
+            "time": {
+              "description": "Timestamp of when the occurrence happened.",
+              "format": "date-time",
+              "type": "string",
+              "examples": [
+                "2018-04-05T17:31:00Z"
+              ]
+            },
+            "sequence": {
+              "description": "Identifier expressing the relative order of the event.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "source",
+            "specversion",
+            "type",
+            "subject",
+            "sequence"
+          ],
+          "patternProperties": {
+            "^xsap[a-z0-9]+$": {
+              "description": "Application defined custom extension context attributes.",
+              "type": [
+                "boolean",
+                "integer",
+                "string"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

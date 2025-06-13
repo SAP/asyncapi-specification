@@ -1,0 +1,802 @@
+{
+  "asyncapi": "2.0.0",
+  "x-sap-catalog-spec-version": "1.2",
+  "x-sap-application-namespace": "sap.sf",
+  "x-sap-ord-id": "sap.sf:eventResource:ExampleCatalog:v1",
+  "x-sap-shortText": "Add your short description here (for Business Accelerator Hub)",
+  "info": {
+    "title": "Example AsyncAPI specification for SAP ecosystem Document",
+    "version": "1.0.0",
+    "description": "Long description of the Event Catalog",
+    "license": {
+      "name": "SAP DEVELOPER LICENSE",
+      "url": "https://tools.eu1.hana.ondemand.com/developer-license-3_1.txt"
+    }
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "sap.odm.workforce.WorkforceAvailability.Created.v1": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/sap.odm.workforce.WorkforceAvailability.Created.v1"
+        }
+      }
+    },
+    "sap.odm.workforce.WorkforceAvailability.Updated.v1": {
+      "subscribe": {
+        "message": {
+          "$ref":"#/components/messages/sap.odm.workforce.WorkforceAvailability.Updated.v1"
+        }
+      }
+    }
+  },
+  "components": {
+    "messageTraits": {
+      "sap.odm.CloudEventsContext.v1": {
+        "headers": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "Identifies the event.",
+              "type": "string",
+              "minLength": 1,
+              "examples": [
+                "6925d08e-bc19-4ad7-902e-bd29721cc69b"
+              ]
+            },
+            "source": {
+              "description": "Identifies the context in which an event happened.",
+              "type": "string",
+              "format": "uri-reference",
+              "minLength": 7,
+              "maxLength": 64,
+              "pattern": "^/(?!ce/)([a-zA-Z0-9][a-zA-Z0-9.-]{0,8}[a-zA-Z0-9])/(?!ce/)(?!ce$)(?=.{3,15}(/|$))([a-z][a-z0-9]*([.][a-z][a-z0-9]*)+)(?=.{0,37}$)(?!/ce$)(/([a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])*$)|$)",
+              "examples": [
+                "/default/sap.s4/rp134"
+              ]
+            },
+            "specversion": {
+              "description": "The version of the CloudEvents specification which the event uses.",
+              "const": "1.0"
+            },
+            "type": {
+              "description": "Describes the type of event related to the originating occurrence.",
+              "type": "string",
+              "minLength": 18,
+              "maxLength": 83,
+              "pattern": "(?=^.{18,83}$)(sap[.]odm([.][a-z]+(?:[a-z0-9]+)*)+)[.]([A-Z]+[a-z0-9]+(?:[A-Z][a-z0-9]+)*)[.]([A-Z]+[a-z0-9]+(?:[A-Z][a-z0-9]+)*)[.](v[0-9]+)$",
+              "examples": [
+                "sap.odm.workforce.WorkforceAvailability.Created.v1"
+              ]
+            },
+            "datacontenttype": {
+              "description": "Content type of the data value. Must adhere to RFC 2046 format.",
+              "const": "application/json"
+            },
+            "dataschema": {
+              "description": "Identifies the schema that data adheres to.",
+              "type": "string",
+              "format": "uri",
+              "examples": [
+                "http://example.com/event/sap.odm.workforce.WorkforceAvailability.Created/v1"
+              ]
+            },
+            "subject": {
+              "description": "Describes the subject of the event in the context of the event producer (identified by source).",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256,
+              "examples": [
+                "ce307052-75a0-4a8f-a961-ebf21669bb80"
+              ]
+            },
+            "time": {
+              "description": "Timestamp of when the occurrence happened. Must adhere to RFC 3339.",
+              "format": "date-time",
+              "type": "string",
+              "examples": [
+                "2018-04-05T17:31:00Z"
+              ]
+            },
+            "sappassport": {
+              "description": "SAP specific tracing header. Also relevant for Integration Monitoring, see TG11.R1: Implement SAP Passport.",
+              "type": "string",
+              "minLength": 1
+            },
+            "sequence": {
+              "description": "Identifier expressing the relative order of the event.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "source",
+            "specversion",
+            "type",
+            "subject",
+            "sequence"
+          ],
+          "patternProperties": {
+            "^xsap[a-z0-9]+$": {
+              "description": "Application defined custom extension context attributes.",
+              "type": [
+                "boolean",
+                "integer",
+                "string"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "messages": {
+      "sap.odm.workforce.WorkforceAvailability.Created.v1": {
+        "x-sap-event-version": "1.1.0",
+        "x-sap-event-spec-version": "2.0",
+        "x-sap-odm-version": "2.1.0",
+        "x-sap-logical-odm-event-version": "1.1.0",
+        "x-sap-event-source": "/{region}/sap.sf.wa/{instanceId}",
+        "x-sap-event-characteristics": {
+          "instance-identification": "key-subject", 
+          "sequencing": "instance-precedence", 
+          "state-transfer": "full-after-image" 
+        },
+        "x-sap-event-source-parameters": {
+          "region": {
+            "description": "The region the application is deployed in.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "instanceId": {
+            "description": "The SuccessFactors tenant id.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "name": "sap.odm.workforce.WorkforceAvailability.Created.v1",
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.odm.workforce.WorkforceAvailability.Created.v1"
+            },
+            "source": {
+              "const": "/default/sap.sf.wa/1234567"
+            },
+            "xsapsfwacompanycode": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 4,
+              "description": "Primary identifier of the legal entity/company code. Referenced at WorkAssignment>jobDetails>legalEntity->externalId."
+            },
+            "xsapsfwajob": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 128,
+              "description": "External identifier of the job. Referenced at WorkAssignment>jobDetails>job>externalId."
+            },
+            "xsapsfwaemployeeclass": {
+              "type": "string",
+              "maxLength": 255,
+              "description": "Primary identifier of code list. Referenced at WorkAssignment>jobDetails>employeeClass->code."
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap.odm.workforce.WorkforceAvailability.Created.v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/sap.odm.CloudEventsContext.v1"
+          }
+        ]
+      },
+      "sap.odm.workforce.WorkforceAvailability.Updated.v1": {
+        "x-sap-event-version": "1.1.0",
+        "x-sap-event-spec-version": "2.0",
+        "x-sap-odm-version": "2.1.0",
+        "x-sap-logical-odm-event-version": "1.1.0",
+        "x-sap-event-source": "/{region}/sap.sf.wa/{instanceId}",
+        "x-sap-event-characteristics": {
+          "instance-identification": "key-subject", 
+          "sequencing": "instance-precedence", 
+          "state-transfer": "full-after-image" 
+        },
+        "x-sap-event-source-parameters": {
+          "region": {
+            "description": "The region the application is deployed in.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "instanceId": {
+            "description": "The SuccessFactors tenant id.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "name": "sap.odm.workforce.WorkforceAvailability.Updated.v1",
+        "headers": {
+          "properties": {
+            "type": {
+              "const": "sap.odm.workforce.WorkforceAvailability.Updated.v1"
+            },
+            "source": {
+              "const": "/default/sap.sf.wa/1234567"
+            },
+            "xsapsfwacompanycode": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 4,
+              "description": "Primary identifier of the legal entity/company code. Referenced at WorkAssignment>jobDetails>legalEntity->externalId."
+            },
+            "xsapsfwajob": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 128,
+              "description": "External identifier of the job. Referenced at WorkAssignment>jobDetails>job>externalId."
+            },
+            "xsapsfwaemployeeclass": {
+              "type": "string",
+              "maxLength": 255,
+              "description": "Primary identifier of code list. Referenced at WorkAssignment>jobDetails>employeeClass->code."
+            }
+          }
+        },
+        "payload": {
+          "$ref": "#/components/schemas/sap.odm.workforce.WorkforceAvailability.Updated.v1"
+        },
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/sap.odm.CloudEventsContext.v1"
+          }
+        ]
+      }
+    },
+    "schemas": {
+      "sap.odm.workforce.WorkforceAvailability.Created.v1": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "Entity identifier based on Universally Unique Identifier."
+          },
+          "workAssignmentId": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Reference to the work assignment this availability record depends on."
+          },
+          "workforcePerson": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                "description": "Entity identifier based on Universally Unique Identifier."
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "description": "The reference to the WorkforcePerson this availability record depends on."
+          },
+          "availabilityDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Day to which the availability relates."
+          },
+          "normalWorkingTime": {
+            "type": "string",
+            "maxLength": 6,
+            "description": "Availability of an employee considering work schedule, temporary changes and holiday class (HALF, FULL or NONE)."
+          },
+          "scheduledTime": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 6,
+            "description": "Availability of an employee considering work schedule and temporary changes without consideration of holiday class."
+          },
+          "shiftCode": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "maxLength": 128,
+                "description": "Code list entry."
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "description": "Regular shift for a day e.g. EARLY, LATE, NIGHT etc."
+          },
+          "holidayCode": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "maxLength": 10,
+                "description": "Code list entry."
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "description": "Determine the type of the holiday."
+          },
+          "availabilityIntervals": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                  "description": "Entity identifier based on Universally Unique Identifier."
+                },
+                "category": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "maxLength": 1,
+                      "description": "Code list entry."
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "description": "Category of the described interval."
+                },
+                "intervalStart": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "Start of the interval. Example: 09:00."
+                },
+                "intervalEnd": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "End of the interval. Example: 18:00."
+                },
+                "contribution": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 6,
+                  "description": "Supplied/consumed availability hours of the time interval Examples: 09:00 for 9 hours \"gross\" availability between 08:00 and 18:00 -01:00 for 1 hour break between 12:00 and 14:00."
+                },
+                "intervalStartsOnSubsequentDay": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Indicates that the time interval starts after midnight, i.e. on the next day Example: break from 01:00 - 01:30 on a night shift that started on the availabilityDate."
+                },
+                "intervalStartsOnPrecedingDay": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Indicates that the time interval starts before midnight, i.e. on the previous day Example: work from 23:00 - 07:00 on a night shift that is logically assigned to the availabilityDate."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "description": "Available / non-available time intervals of planned/regular working times of the day."
+            },
+            "description": "List of available/non-available time intervals of planned/regular working times of the day. Can be empty in certain use cases. For DURATION based employees this will be empty, for clock-time users it will be filled with regular shift timings and break times."
+          },
+          "availabilitySupplements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                  "description": "Entity identifier based on Universally Unique Identifier."
+                },
+                "category": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "maxLength": 1,
+                      "description": "Code list entry."
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "description": "The category of the availability supplement, e.g., absence or planned training."
+                },
+                "isWorkerApproachable": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Indicates whether worker is approachable or not and will be used by planning applications. If this flag is set to true, the type attribute needs to specified as well."
+                },
+                "type": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "maxLength": 128,
+                      "description": "Code list entry."
+                    },
+                    "category": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "maxLength": 1,
+                          "description": "Code list entry."
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ],
+                      "description": "The category of the availability supplement, e.g., absence or planned training."
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "category"
+                  ],
+                  "description": "Supplied/consumed availability hours. In case of an absence: the type of the absence, e.g. vacation or sickness leave."
+                },
+                "intervalStart": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "Start of the interval. Example: 09:00."
+                },
+                "intervalEnd": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "End of the interval. Example: 11:00."
+                },
+                "contribution": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 6,
+                  "description": "Supplied/consumed availability hours Example: -02:00 for a 2 hours absence."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "description": "Contributions to availability, for example absences."
+            },
+            "description": "List of contributions to availability, for example absences. Can be empty."
+          }
+        },
+        "required": [
+          "id",
+          "workAssignmentId",
+          "workforcePerson",
+          "availabilityDate",
+          "normalWorkingTime"
+        ],
+        "x-key": [
+          "id"
+        ],
+        "description": "Represent day-wise availability of an employee considering Work Schedule, Holiday Calendar and Temporary Changes. Also, provides absence (time off) information as a composition aspect. Workforce availability is used for staffing and resource planning of employees."
+      },
+      "sap.odm.workforce.WorkforceAvailability.Updated.v1": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            "description": "Entity identifier based on Universally Unique Identifier."
+          },
+          "workAssignmentId": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Reference to the work assignment this availability record depends on."
+          },
+          "workforcePerson": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                "description": "Entity identifier based on Universally Unique Identifier."
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "description": "The reference to the WorkforcePerson this availability record depends on."
+          },
+          "availabilityDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Day to which the availability relates."
+          },
+          "normalWorkingTime": {
+            "type": "string",
+            "maxLength": 6,
+            "description": "Availability of an employee considering work schedule, temporary changes and holiday class (HALF, FULL or NONE)."
+          },
+          "scheduledTime": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 6,
+            "description": "Availability of an employee considering work schedule and temporary changes without consideration of holiday class."
+          },
+          "shiftCode": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "maxLength": 128,
+                "description": "Code list entry."
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "description": "Regular shift for a day e.g. EARLY, LATE, NIGHT etc."
+          },
+          "holidayCode": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "maxLength": 10,
+                "description": "Code list entry."
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "description": "Determine the type of the holiday."
+          },
+          "availabilityIntervals": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                  "description": "Entity identifier based on Universally Unique Identifier."
+                },
+                "category": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "maxLength": 1,
+                      "description": "Code list entry."
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "description": "Category of the described interval."
+                },
+                "intervalStart": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "Start of the interval. Example: 09:00."
+                },
+                "intervalEnd": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "End of the interval. Example: 18:00."
+                },
+                "contribution": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 6,
+                  "description": "Supplied/consumed availability hours of the time interval Examples: 09:00 for 9 hours \"gross\" availability between 08:00 and 18:00 -01:00 for 1 hour break between 12:00 and 14:00."
+                },
+                "intervalStartsOnSubsequentDay": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Indicates that the time interval starts after midnight, i.e. on the next day Example: break from 01:00 - 01:30 on a night shift that started on the availabilityDate."
+                },
+                "intervalStartsOnPrecedingDay": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Indicates that the time interval starts before midnight, i.e. on the previous day Example: work from 23:00 - 07:00 on a night shift that is logically assigned to the availabilityDate."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "description": "Available / non-available time intervals of planned/regular working times of the day."
+            },
+            "description": "List of available/non-available time intervals of planned/regular working times of the day. Can be empty in certain use cases. For DURATION based employees this will be empty, for clock-time users it will be filled with regular shift timings and break times."
+          },
+          "availabilitySupplements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                  "description": "Entity identifier based on Universally Unique Identifier."
+                },
+                "category": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "maxLength": 1,
+                      "description": "Code list entry."
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "description": "The category of the availability supplement, e.g., absence or planned training."
+                },
+                "isWorkerApproachable": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ],
+                  "description": "Indicates whether worker is approachable or not and will be used by planning applications. If this flag is set to true, the type attribute needs to specified as well."
+                },
+                "type": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "maxLength": 128,
+                      "description": "Code list entry."
+                    },
+                    "category": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "maxLength": 1,
+                          "description": "Code list entry."
+                        }
+                      },
+                      "required": [
+                        "code"
+                      ],
+                      "description": "The category of the availability supplement, e.g., absence or planned training."
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "category"
+                  ],
+                  "description": "Supplied/consumed availability hours. In case of an absence: the type of the absence, e.g. vacation or sickness leave."
+                },
+                "intervalStart": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "Start of the interval. Example: 09:00."
+                },
+                "intervalEnd": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "time",
+                  "description": "End of the interval. Example: 11:00."
+                },
+                "contribution": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 6,
+                  "description": "Supplied/consumed availability hours Example: -02:00 for a 2 hours absence."
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "description": "Contributions to availability, for example absences."
+            },
+            "description": "List of contributions to availability, for example absences. Can be empty."
+          }
+        },
+        "required": [
+          "id",
+          "workAssignmentId",
+          "workforcePerson",
+          "availabilityDate",
+          "normalWorkingTime"
+        ],
+        "x-key": [
+          "id"
+        ],
+        "description": "Represent day-wise availability of an employee considering Work Schedule, Holiday Calendar and Temporary Changes. Also, provides absence (time off) information as a composition aspect. Workforce availability is used for staffing and resource planning of employees."
+      }
+    }
+  }
+}
