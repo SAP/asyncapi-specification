@@ -14,8 +14,6 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Contact Persons](#contact-persons)
 - [Notational Conventions](#notational-conventions)
 - [Terminology](#terminology)
 - [Specification](#specification)
@@ -74,11 +72,11 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
   - [`x-key`](#x-key)
   - [`x-sap-odm-entity-name`](#x-sap-odm-entity-name)
   - [`x-sap-odm-oid-reference-entity-name`](#x-sap-odm-oid-reference-entity-name)
-  - [`x-sap-dpp-entity-semantics`](#x-sap-x-sap-dpp-entity-semantics)
+  - [`x-sap-dpp-entity-semantics`](#x-sap-dpp-entity-semantics)
   - [`x-sap-dpp-data-subject-role`](#x-sap-dpp-data-subject-role)
   - [`x-sap-dpp-data-subject-role-description`](#x-sap-dpp-data-subject-role-description)
   - [`x-sap-dpp-field-semantics`](#x-sap-dpp-field-semantics)
-  - [`x-sap-dpp-is-potentially-personal`](#x-sap-dpp-potentially-personal)
+  - [`x-sap-dpp-is-potentially-personal`](#x-sap-dpp-is-potentially-personal)
   - [`x-sap-dpp-is-potentially-sensitive`](#x-sap-dpp-is-potentially-sensitive)  
 - [Event Catalog Compatibility, Versioning and Lifecycle](#event-catalog-compatibility-versioning-and-lifecycle)
   - [Compatibility and Versioning](#compatibility-and-versioning)
@@ -89,6 +87,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
 - [Examples](#examples)
 - [Tools and Resources](#tools-and-resources)
 - [Changelog](#changelog)
+
 
 ## Notational Conventions
 
@@ -102,9 +101,9 @@ The CloudEvents specification for SAP ecosystem and the AsyncAPI specification f
 
 |CloudEvents specification for SAP ecosystem|AsyncAPI specification for SAP ecosystem|
 |---|---|
-|Event|[Message](https://www.asyncapi.com/docs/specifications/2.0.0#definitionsMessage)|
-|Event Context|[Message Header](https://www.asyncapi.com/docs/specifications/2.0.0#messageObject)|
-|Event Data|[Message Payload](https://www.asyncapi.com/docs/specifications/2.0.0#messageObject)|
+|Event|[Message](https://www.asyncapi.com/docs/reference/specification/v2.0.0#definitionsMessage)|
+|Event Context|[Message Header](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)|
+|Event Data|[Message Payload](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)|
 
 Documents following the AsyncAPI specification for SAP ecosystem are also referred to as _event catalogs_ or _event catalog documents_ in the following.
 
@@ -118,7 +117,7 @@ An event catalog document according to this specification MUST only be used to d
 
 Event catalog documents MUST NOT be used to describe any other asynchronous API. Instead, regular AsyncAPI 2.0 documents SHOULD be used to describe those (in this case, the [`servers`](#servers) field SHOULD be completed to indicate the intermediary providing the described events).
 
-### [AsyncAPI Object](https://www.asyncapi.com/docs/specifications/2.0.0#A2SObject)
+### [AsyncAPI Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#A2SObject)
 
 #### `asyncapi`
 
@@ -178,11 +177,11 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on catalo
 
 The [`x-sap-shortText`](#x-sap-shorttext-1) extension MAY be provided.
 
-### [Channels Object](https://www.asyncapi.com/docs/specifications/v2.0.0#channelsObject)
+### [Channels Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#channelsObject)
 
 The Channels Object MUST include a [Channel Item Object](#channel-item-object) for every produced or consumed event. The channel name SHOULD reflect the path to which the event is published or it is consumed from. If no real path is available, the CloudEvent `type` MAY be used.
 
-### [Channel Item Object](https://www.asyncapi.com/docs/specifications/2.0.0#channelItemObject)
+### [Channel Item Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#channelItemObject)
 
 #### `subscribe`
 
@@ -192,13 +191,13 @@ The `subscribe` field is REQUIRED for every event actively **produced** (please 
 
 The `publish` field MAY be used to indicate that the application itself **consumes** an event (please note that the direction here may be counter-intuitive to some). Is uses an [Operation Object](#operation-object).
 
-### [Operation Object](https://www.asyncapi.com/docs/specifications/2.0.0#operationObject)
+### [Operation Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#operationObject)
 
 #### `message`
 
 The `message` field is REQUIRED. Events MUST NOT be defined directly in the `message` field. Instead, the definition MUST be referenced via `$ref` from the [`messages`](#messages) field of the [Components Object](#components-object).
 
-### [Components Object](https://www.asyncapi.com/docs/specifications/2.0.0#componentsObject)
+### [Components Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#componentsObject)
 
 #### `messages`
 
@@ -208,9 +207,9 @@ The `messages` field is REQUIRED. All events MUST be defined via a [Message Obje
 
 #### `schemas`
 
-The `schemas` field is OPTIONAL. Primary expected usage is to define [Schema Objects](https://www.asyncapi.com/docs/specifications/2.0.0#schemaObject) describing event data which are referenced from the Message Object's [payload](#payload) field.
+The `schemas` field is OPTIONAL. Primary expected usage is to define [Schema Objects](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) describing event data which are referenced from the Message Object's [payload](#payload) field.
 
-### [Message Object](https://www.asyncapi.com/docs/specifications/2.0.0#messageObject)
+### [Message Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)
 
 The Message Object MUST correctly describe an event with event context and event data as mandated by the CloudEvents specification for SAP ecosystem.
 
@@ -273,7 +272,7 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on messag
 
 The [`x-sap-event-version`](#x-sap-event-version-1) extension MUST be provided if applicable.
 
-### [Message Trait Object](https://www.asyncapi.com/docs/specifications/2.0.0#messageTraitObject)
+### [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageTraitObject)
 
 A Message Trait Object MAY be applied to [Message Objects](#message-object). All attributes of the Message Trait Object are then added to the referencing Message Object.
 
@@ -281,7 +280,7 @@ A Message Trait Object MAY be applied to [Message Objects](#message-object). All
 > A trait will overwrite everything that is already in the message. The trait is therefore more "specific" than the message it is applied to.
 >
 > Effectively this means that the trait **can not provide default values**, e.g. via `const`.
-> This also for instance affects the definition of `required` headers as the `required` array of trait will replace a `required` array defined in the message header object (see this [issue](https://github.com/asyncapi/asyncapi/issues/505) for more details).
+> This also for instance affects the definition of `required` headers as the `required` array of trait will replace a `required` array defined in the message header object (see this [issue](https://github.com/asyncapi/spec/issues/505) for more details).
 
 #### `CloudEventsContext.v1` messageTrait Template
 
@@ -382,7 +381,7 @@ It is RECOMMENDED to add further context attributes that are present in every de
 
 ## Defined Specification Extensions
 
-This specification defines additional extensions according to the rules given in [Specification Extensions](https://www.asyncapi.com/docs/specifications/2.0.0#specificationExtensions) of the AsyncAPI 2.0 specification. Defined extensions start with a `x-sap-` prefix. The description of the extensions include their applicability.
+This specification defines additional extensions according to the rules given in [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v2.0.0#specificationExtensions) of the AsyncAPI 2.0 specification. Defined extensions start with a `x-sap-` prefix. The description of the extensions include their applicability.
 
 To add new SAP defined extensions to this specification, please create a new [issue](https://github.com/SAP/asyncapi-specification/issues/new).
 
@@ -581,7 +580,7 @@ Examples:
 
 Constraints:
 
-- MUST be a valid [ORD ID](https://open-resource-discovery.github.io/specification/spec-v1/#ord-id) that has been used to publish the AsyncAPI document as [Event Resource](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource_ordid).
+- MUST be a valid [ORD ID](https://open-resource-discovery.org/spec-v1#ord-id) that has been used to publish the AsyncAPI document as [Event Resource](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource_ordid).
   - Regexp: `^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$`
 
 Examples:
@@ -657,7 +656,7 @@ Constraints:
 
 ## Defined JSON Schema Extensions
 
-This specification defines additional keywords for the [Schema Object](https://www.asyncapi.com/docs/specifications/v2.0.0#schemaObject) used to describe the [`payload`](#payload) of the [Message Object](https://www.asyncapi.com/docs/specifications/v2.0.0#messageObject).
+This specification defines additional keywords for the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) used to describe the [`payload`](#payload) of the [Message Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject).
 
 ### `x-key`
 
@@ -931,7 +930,7 @@ The [version](#info) of the event catalog document MUST be incremented according
 
 Additionally, the event catalog document version MAY evolve independently from the events according to semantic versioning. Any change not listed in the following is by definition incompatible and requires increasing the MAJOR version of the catalog.
 
-> Note that the list of PATCH and MINOR changes is likely incomplete and MAY be extended based on a case by case discussion with the [authors](#contact-persons) of this specification.
+> Note that the list of PATCH and MINOR changes is likely incomplete and MAY be extended based on a case by case discussion with the authors of this specification.
 
 #### Patch Changes
 
@@ -1139,4 +1138,4 @@ We as members, contributors, and leaders pledge to make participation in our com
 
 ## Licensing
 
-Copyright 2025 SAP SE or an SAP affiliate company and asyncapi-specification-for-sap-ecosystem contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/asyncapi-specification).
+Copyright 2026 SAP SE or an SAP affiliate company and asyncapi-specification-for-sap-ecosystem contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/asyncapi-specification).

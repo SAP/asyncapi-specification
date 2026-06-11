@@ -29,6 +29,6 @@
     "asyncapi.schema.json"
   ],
   "devDependencies": {
-    "markdown-link-check": "3.12.1"
+    "markdown-link-check": "3.13.7"
   }
 }
