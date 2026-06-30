@@ -672,12 +672,11 @@ Constraints:
 - Used at: [AsyncAPI Object](#asyncapi-object) (catalog/`info` level), [Message Object](#message-object)
 - Description: Provides a hint for AI consumers (e.g., LLMs) on how to use or interpret the annotated element. Intentionally kept separate from human-readable `description` fields so that end-user-facing documentation and AI-targeted guidance can evolve independently.
 
-`x-sap-ai-hint` serves two roles depending on whether a `description` is already present:
+`x-sap-ai-hint` adds AI-specific context that would clutter or be out of place in the human-facing `description`: routing guidance, preconditions, side effects, related events, or disambiguation against similar events.
 
-- **Complementary** — when a `description` exists for human readers, use `x-sap-ai-hint` to add AI-specific context that would clutter or be out of place in the human-facing description: routing guidance, preconditions, side effects, related events, or disambiguation against similar events.
-- **Standalone** — when no `description` is present, `x-sap-ai-hint` can serve as the sole description, written entirely for AI consumption rather than end-user documentation.
+A proper human-readable `description` SHOULD still be provided — `x-sap-ai-hint` complements it, it does not replace it.
 
-In both cases, the content should be optimized for an AI agent that needs to decide *whether* and *how* to consume or react to the event — not for a developer reading reference docs.
+The content should be optimized for an AI agent that needs to decide *whether* and *how* to consume or react to the event — not for a developer reading reference docs.
 
 Constraints:
 
