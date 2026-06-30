@@ -32,7 +32,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
     - [`x-sap-ord-id`](#x-sap-ord-id)
     - [`x-sap-stateInfo`](#x-sap-stateinfo)
     - [`x-sap-shortText`](#x-sap-shorttext)
-    - [`x-sap-ai-hint`](#x-sap-ai-hint)
+    - [`x-sap-ai-hint` (info level)](#x-sap-ai-hint-info-level)
   - [Channels Object](#channels-object)
   - [Channel Item Object](#channel-item-object)
     - [`subscribe`](#subscribe)
@@ -53,7 +53,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
     - [`x-sap-event-characteristics`](#x-sap-event-characteristics)
     - [`x-sap-stateInfo`](#x-sap-stateinfo-1)
     - [`x-sap-event-version`](#x-sap-event-version)
-    - [`x-sap-ai-hint`](#x-sap-ai-hint-1)
+    - [`x-sap-ai-hint` (message level)](#x-sap-ai-hint-message-level)
   - [Message Trait Object](#message-trait-object)
     - [`CloudEventsContext.v1` messageTrait Template](#cloudeventscontextv1-messagetrait-template)
 - [Defined Specification Extensions](#defined-specification-extensions)
@@ -70,7 +70,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
   - [`x-sap-event-version`](#x-sap-event-version-1)
   - [`x-sap-shortText`](#x-sap-shorttext-1)
   - [`x-sap-software-min-version`](#x-sap-software-min-version)
-  - [`x-sap-ai-hint`](#x-sap-ai-hint-2)
+  - [`x-sap-ai-hint` (Specification Extension)](#x-sap-ai-hint-specification-extension)
 - [Defined JSON Schema Extensions](#defined-json-schema-extensions)
   - [`x-key`](#x-key)
   - [`x-sap-odm-entity-name`](#x-sap-odm-entity-name)
@@ -81,7 +81,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
   - [`x-sap-dpp-field-semantics`](#x-sap-dpp-field-semantics)
   - [`x-sap-dpp-is-potentially-personal`](#x-sap-dpp-is-potentially-personal)
   - [`x-sap-dpp-is-potentially-sensitive`](#x-sap-dpp-is-potentially-sensitive)  
-  - [`x-sap-ai-hint`](#x-sap-ai-hint-3)
+  - [`x-sap-ai-hint` (JSON Schema Extension)](#x-sap-ai-hint-json-schema-extension)
 - [Event Catalog Compatibility, Versioning and Lifecycle](#event-catalog-compatibility-versioning-and-lifecycle)
   - [Compatibility and Versioning](#compatibility-and-versioning)
     - [Patch Changes](#patch-changes)
@@ -181,9 +181,9 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on catalo
 
 The [`x-sap-shortText`](#x-sap-shorttext-1) extension MAY be provided.
 
-#### `x-sap-ai-hint`
+#### `x-sap-ai-hint` (info level)
 
-The [`x-sap-ai-hint`](#x-sap-ai-hint-2) extension MAY be provided to describe the event catalog to AI consumers.
+The [`x-sap-ai-hint`](#x-sap-ai-hint-json-schema-extension) extension MAY be provided to describe the event catalog to AI consumers.
 
 ### [Channels Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#channelsObject)
 
@@ -280,9 +280,9 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on messag
 
 The [`x-sap-event-version`](#x-sap-event-version-1) extension MUST be provided if applicable.
 
-#### `x-sap-ai-hint`
+#### `x-sap-ai-hint` (message level)
 
-The [`x-sap-ai-hint`](#x-sap-ai-hint-1) extension MAY be provided to describe the event to AI consumers.
+The [`x-sap-ai-hint`](#x-sap-ai-hint-json-schema-extension) extension MAY be provided to describe the event to AI consumers.
 
 ### [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageTraitObject)
 
@@ -666,7 +666,7 @@ Constraints:
 
 - OPTIONAL
 
-### `x-sap-ai-hint`
+### `x-sap-ai-hint` (Specification Extension)
 
 - Type: `String`
 - Used at: [AsyncAPI Object](#asyncapi-object) (catalog/`info` level), [Message Object](#message-object)
@@ -683,7 +683,7 @@ Constraints:
 
 - OPTIONAL
 
-See also: [Defined JSON Schema Extensions — `x-sap-ai-hint`](#x-sap-ai-hint-3) for applying AI hints to individual payload properties.
+See also: [Defined JSON Schema Extensions — `x-sap-ai-hint`](#x-sap-ai-hint-json-schema-extension) for applying AI hints to individual payload properties.
 
 ## Defined JSON Schema Extensions
 
@@ -943,7 +943,7 @@ Constraints:
 - MUST NOT be used if value is `false`
 - MUST NOT be combined with `x-sap-dpp-is-potentially-personal` for the same property
 
-### `x-sap-ai-hint`
+### `x-sap-ai-hint` (JSON Schema Extension)
 
 - Type: `String`
 - Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) — at the top-level payload schema and at individual property sub-schemas
@@ -972,7 +972,7 @@ Structure `x-sap-ai-hint` values using **lightweight, semantically structured Ma
 - **Reuse patterns across events** — predictability across event schemas matters more than stylistic variation.
 - **Lightweight Markdown only** — bullets, bold labels, `inline code` for fields and identifiers. Avoid tables and deep nesting.
 
-See also: [Defined Specification Extensions — `x-sap-ai-hint`](#x-sap-ai-hint-2) for applying AI hints at the catalog or message level.
+See also: [Defined Specification Extensions — `x-sap-ai-hint`](#x-sap-ai-hint-specification-extension) for applying AI hints at the catalog or message level.
 
 #### Example
 
