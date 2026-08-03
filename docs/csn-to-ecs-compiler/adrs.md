@@ -1,6 +1,6 @@
 # CDS CSN to AsyncAPI specification for SAP ecosystem Mapping - Architecture Decision Records
 
-This document shall record all important challenges, decisions and consequences regarding the generation of [AsyncAPI specification for SAP ecosystem](https://github.tools.sap/CentralEngineering/asyncapi-specification) documents from [CDS](https://pages.github.tools.sap/cap/docs/cds/)/[CSN](https://pages.github.tools.sap/cap/docs/cds/csn) models.
+This document shall record all important challenges, decisions and consequences regarding the generation of [AsyncAPI specification for SAP ecosystem](https://github.com/SAP/asyncapi-specification) documents from [CDS](https://pages.github.tools.sap/cap/docs/cds/)/[CSN](https://pages.github.tools.sap/cap/docs/cds/csn) models.
 
 ## Contents
 
@@ -48,16 +48,16 @@ It consequently does not provide richer information like the relationship model 
 
 The Data Plane Service (DPS) was considered to be such a replicator and filed the initial request for this effort.
 In the meantime, priorities have changed and DPS does not exist as such any longer.
-However, the requirement is still valid and still applies for instance to Data Warehouse Cloud (DWC).
-In the context of DWC and event ingestion, the preferred approach for DWC is to receive CSN descriptions of the event models so that it can easily create the target tables (relational) from this CSN description.
-If data providers are capable of producing CSN descriptions, they therefore should leverage the higher quality CSN description for the DWC integration (this is as of now even required for the TSM frontrunner).
-If not, the DWC must fall back to the lower entry barrier event catalogs to create the target tables which may require additional manual care for the target tables.
+However, the requirement is still valid and still applies for instance to SAP Datasphere.
+In the context of SAP Datasphere and event ingestion, the preferred approach for SAP Datasphere is to receive CSN descriptions of the event models so that it can easily create the target tables (relational) from this CSN description.
+If data providers are capable of producing CSN descriptions, they therefore should leverage the higher quality CSN description for the SAP Datasphere integration (this is as of now even required for the TSM frontrunner).
+If not, the SAP Datasphere must fall back to the lower entry barrier event catalogs to create the target tables which may require additional manual care for the target tables.
 
 In order for this to work consistently, the following is needed:
 
 - A well specified CSN interop flavor for data exchange
   - Ideally reduced to a minimal feature set for easier adoption (not all CSN providers or consumers are CAP applications)
-  - “CSN interop as the agreed CSN flavor for data exchange between CAP, ABAP Platform, DWC, …"
+  - “CSN interop as the agreed CSN flavor for data exchange between CAP, ABAP Platform, SAP Datasphere, …"
 - A well specified mapping from CSN interop to JSON (events)
   - As the CSN is used to describe the events, it must be ensured that the JSON serialization is the same for every provider
   - This mapping is specified via the CSN->EventCatalog mapping
@@ -66,7 +66,7 @@ In order for this to work consistently, the following is needed:
 
 The given effort targets the latter, a well specified mapping from CSN to JSON (events).
 
-This overall understanding is described in below picture. In orange, the runtime event flow with events exchanged between the provider and DWC via Event Mesh Kernel Service. In green, the low entry barrier Event Catalog to describe the events, and to create target tables from. In blue, the optional but higher quality CSN interop to describe the events, and to create target tables from.
+This overall understanding is described in below picture. In orange, the runtime event flow with events exchanged between the provider and SAP Datasphere via Event Mesh Kernel Service. In green, the low entry barrier Event Catalog to describe the events, and to create target tables from. In blue, the optional but higher quality CSN interop to describe the events, and to create target tables from.
 
 ![Overview](./assets/overview.png)
 
@@ -108,7 +108,7 @@ Background of the decision is that CAP has no intrinsic requirement of documenti
 
 ### Consequence
 
-The compiler uses [AsyncAPI specification for SAP ecosystem](https://github.tools.sap/CentralEngineering/asyncapi-specification) ([AsyncAPI 2.0.0](https://www.asyncapi.com/docs/reference/specification/v2.0.0) flavor) to describe events that follow the [CloudEvents specification for SAP ecosystem](https://github.tools.sap/CentralEngineering/cloudevents-specification) ([CloudEvents](https://github.com/cloudevents/spec/blob/v1.0/spec.md) flavor) format at runtime.
+The compiler uses [AsyncAPI specification for SAP ecosystem](https://github.com/SAP/asyncapi-specification) ([AsyncAPI 2.0.0](https://v2.asyncapi.com/docs/reference/specification/v2.0.0) flavor) to describe events that follow the [CloudEvents specification for SAP ecosystem](https://github.tools.sap/CentralEngineering/cloudevents-specification) ([CloudEvents](https://github.com/cloudevents/spec/blob/v1.0/spec.md) flavor) format at runtime.
 It does not support generating vanilla AsyncAPI documents describing arbitrarily formatted events.
 
 Still, even though the tooling targets CloudEvents specification for SAP ecosystem format, the developer has to follow TG27 requirements when modelling the events.

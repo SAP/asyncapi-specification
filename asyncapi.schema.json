@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/SAP/asyncapi-specification/refs/heads/main/asyncapi.schema.json#",
   "title": "AsyncAPI specification for SAP ecosystem schema - 1.2",
   "description": "Based on AsyncAPI 2.0.0 schema.",
@@ -413,7 +413,7 @@
     "schema": {
       "allOf": [
         {
-          "$ref": "http://json-schema.org/draft-07/schema#"
+          "$ref": "https://json-schema.org/draft-07/schema#"
         },
         {
           "type": "object",

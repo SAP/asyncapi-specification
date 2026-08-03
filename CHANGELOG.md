@@ -11,7 +11,7 @@ All notable changes to the AsyncAPI specification for SAP ecosystem are document
 * Added the [`x-sap-dpp-data-subject-role`](README.md#x-sap-dpp-data-subject-role) extension
 * Added the [`x-sap-dpp-data-subject-role-description`](README.md#x-sap-dpp-data-subject-role-description) extension
 * Added the [`x-sap-dpp-field-semantics`](README.md#x-sap-dpp-field-semantics) extension
-* Added the [`x-sap-dpp-is-potentially-personal`](README.md#x-sap-dpp-potentially-personal) extension
+* Added the [`x-sap-dpp-is-potentially-personal`](README.md#x-sap-dpp-is-potentially-personal) extension
 * Added the [`x-sap-dpp-is-potentially-sensitive`](README.md#x-sap-dpp-is-potentially-sensitive) extension
 
 ### Changed
