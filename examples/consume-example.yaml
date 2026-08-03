@@ -137,7 +137,7 @@ components:
             description: Identifies the schema that data adheres to.
             format: uri
         additionalProperties: false
-        patternPropeties:
+        patternProperties:
           "^xsap[a-z0-9]+$":
             description: Application defined custom extension context attributes.
             type:

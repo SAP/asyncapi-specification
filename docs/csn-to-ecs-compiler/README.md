@@ -1,6 +1,6 @@
 # CDS CSN to AsyncAPI specification for SAP ecosystem Mapping - Translation Rules
 
-This document shall record and specify the rules for compiling [AsyncAPI specification for SAP ecosystem](../../README.md) documents out of [CDS](https://pages.github.tools.sap/cap/docs/cds/) [CSN](https://pages.github.tools.sap/cap/docs/cds/csn) models.
+This document shall record and specify the rules for compiling [AsyncAPI specification for SAP ecosystem](../../README.md) documents out of [CDS](https://cap.cloud.sap/docs/cds/) [CSN](https://cap.cloud.sap/docs/cds/csn) models.
 
 ## Context
 
@@ -8,7 +8,7 @@ The requirement for this has its origin in the Data Plane Services (DPS) and can
 
 ## Scope
 
-The following mappings are defining CDS CSN to AsyncAPI specification for SAP ecosystem description format translations. AsyncAPI specification for SAP ecosystem format is based on [AsyncAPI 2.0.0](https://www.asyncapi.com/docs/specifications/2.0.0) which uses [JSON Schema Draft 07](https://tools.ietf.org/html/draft-handrews-json-schema-01) to describe data schemas. It is defined as part of [TG27 - Business Events](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/tree/main/tg27) and applies for describing events complying to the [CloudEvents specification for SAP ecosystem](https://github.tools.sap/CentralEngineering/cloudevents-specification), based on [CloudEvents 1.0](https://cloudevents.io/), that are [published to the Event Mesh Kernel Service](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/tree/main/tg27#assessment-tg27r3-publish-business-events-and-event-catalogs). See also [ADR01](./adrs.md#adr01-the-generation-functionality-is-implemented-as-part-of-the-cap-compiler-similar-to-the-existing-openapi-generator) and [ADR02](./adrs.md#adr02-the-compiler-works-specific-to-tg27---business-events-and-its-requirements).
+The following mappings are defining CDS CSN to AsyncAPI specification for SAP ecosystem description format translations. AsyncAPI specification for SAP ecosystem format is based on [AsyncAPI 2.0.0](https://v2.asyncapi.com/docs/reference/specification/v2.0.0) which uses [JSON Schema Draft 07](https://json-schema.org/draft-07) to describe data schemas. It is defined as part of [TG27 - Business Events](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/tree/main/tg27) and applies for describing events complying to the [CloudEvents specification for SAP ecosystem](https://github.tools.sap/CentralEngineering/cloudevents-specification), based on [CloudEvents 1.0](https://cloudevents.io/), that are [published to the Event Mesh Kernel Service](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/tree/main/tg27#assessment-tg27r3-publish-business-events-and-event-catalogs). See also [ADR01](./adrs.md#adr01-the-generation-functionality-is-implemented-as-part-of-the-cap-compiler-similar-to-the-existing-openapi-generator) and [ADR02](./adrs.md#adr02-the-compiler-works-specific-to-tg27---business-events-and-its-requirements).
 
 :bulb: Note that the output format is AsyncAPI specification for SAP ecosystem that is based on AsyncAPI 2.0.0. The output format is NOT vanilla AsyncAPI.
 
@@ -16,11 +16,11 @@ The following mappings are defining CDS CSN to AsyncAPI specification for SAP ec
 
 In the given context, CloudEvents are described using AsyncAPI documents. Because CloudEvents and AsyncAPI originated independently from each other, different terminology is used. The following terminology mapping applies:
 
-|CloudEvents term|AsyncAPI term|
-|---|---|
-|[Event](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/blob/master/tg27/docs/terminology.md#event)|[Message](https://www.asyncapi.com/docs/specifications/2.0.0#definitionsMessage)|
-|[Event Context](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/blob/master/tg27/docs/terminology.md#context)|Message Header|
-|[Event Data](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/blob/master/tg27/docs/terminology.md#data)|Message Payload|
+|CloudEvents term| AsyncAPI term                                                                             |
+|---|-------------------------------------------------------------------------------------------|
+|[Event](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/blob/master/tg27/docs/terminology.md#event)| [Message](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#definitionsMessage) |
+|[Event Context](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/blob/master/tg27/docs/terminology.md#context)| Message Header                                                                            |
+|[Event Data](https://github.tools.sap/CentralEngineering/TechnologyGuidelines/blob/master/tg27/docs/terminology.md#data)| Message Payload                                                                           |
 
 ## Table of Contents
 
@@ -45,12 +45,12 @@ In the given context, CloudEvents are described using AsyncAPI documents. Becaus
 - [Enums](#enums)
 - [Associations](#associations)
   - [Managed to one Associations](#managed-to-one-associations)
-  - [Un managed to one Associations](#un-managed-to-one-associations)
+  - [Unmanaged to one Associations](#unmanaged-to-one-associations)
   - [One To Many Associations](#one-to-many-associations)
   - [Many To Many Associations](#many-to-many-associations)
 - [Compositions](#compositions)
   - [Composition of One](#composition-of-one)
-  - [Un Managed Composition of Many](#un-managed-composition-of-many)
+  - [Unmanaged Composition of Many](#unmanaged-composition-of-many)
   - [Managed Composition of Many](#managed-composition-of-many)
 - [Constraints](#constraints)
 
@@ -88,7 +88,7 @@ In the given context, CloudEvents are described using AsyncAPI documents. Becaus
 
 ## Event Definitions
 
-Each event definition is mapped to a [_message_](https://github.tools.sap/CentralEngineering/asyncapi-specification#messages) object. There will be a dedicated message per event.
+Each event definition is mapped to a [_message_](https://github.com/SAP/asyncapi-specification#messages) object. There will be a dedicated message per event.
 
 Message objects are placed under the `#/components/messages` object. The key and the name property of each message are equal to the event `type` literal (see [Context](#context)). Every message object contains:
 
@@ -108,7 +108,7 @@ See also [ADR03](./adrs.md#adr03-the-compiler-does-only-consider-events-declared
 
 ### Context
 
-The `headers` object contains the event's [`type`](https://github.tools.sap/CentralEngineering/cloudevents-specification#type-attribute).
+The `headers` object contains the event's [`type`](https://github.com/SAP/cloudevents-specification#type-attribute).
 
 The `type` attribute is defined as string literal using the [`const`](https://json-schema.org/understanding-json-schema/reference/generic.html#constant-values) keyword. The string literal of the `type` is concatenated from the namespace, service name and the event name. The developer has to assign a proper name to comply with the CloudEvents specification for SAP ecosystem defined pattern `<namespace>.<businessObject>.<operation>.<version>`. For example, if the event is defined in service `MyService` within namespace `sap.example` with the name `Something.Created.v1`, the resulting `type` is `sap.example.myservice.Something.Created.v1`. See also [ADR07](./adrs.md#adr07-the-compiler-does-construct-the-event-type-from-namespace-service-name-and-event-name).
 
@@ -403,7 +403,7 @@ In the AsyncAPI Document:
 
 ## Structured Types
 
-See also [ADR12](./adrs.md#adr13-structured-types-are-objects-and-not-flattened-out).
+See also [ADR13](./adrs.md#adr13-structured-types-are-objects-and-not-flattened-out).
 
 In CDS:
 
@@ -1225,7 +1225,7 @@ In AsyncAPI:
 }
 ```
 
-### Un managed to one Associations
+### Unmanaged to one Associations
 
 In CDS:
 
@@ -1897,7 +1897,7 @@ In AsyncAPI:
 }
 ```
 
-### Un Managed Composition of Many
+### Unmanaged Composition of Many
 
 In CDS:
 

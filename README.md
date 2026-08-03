@@ -6,11 +6,11 @@ The _AsyncAPI specification for SAP ecosystem_ describes events that comply with
 
 The goal of this specification is to describe a standardized event catalog format that enables a central and uniform event publication and event discovery.
 
-Is's used to publish content on [SAP Business Accelerator Hub](https://api.sap.com).
+It is used to publish content on [SAP Business Accelerator Hub](https://api.sap.com).
 
-This specification is based on the [AsyncAPI Specification 2.0](https://v2.asyncapi.com/docs/reference/specification/v2.0.0). Every document following the AsyncAPI specification for SAP ecosystem is also a valid AsyncAPI 2 document.
+This specification is based on the [AsyncAPI Specification 2.0.0](https://v2.asyncapi.com/docs/reference/specification/v2.0.0). Every document following the AsyncAPI specification for SAP ecosystem is also a valid AsyncAPI 2 document.
 
-It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
+It is RECOMMENDED to first get familiar with AsyncAPI 2.0.0.
 
 ## Table of Contents
 
@@ -68,6 +68,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
   - [`x-sap-event-version`](#x-sap-event-version-1)
   - [`x-sap-shortText`](#x-sap-shorttext-1)
   - [`x-sap-software-min-version`](#x-sap-software-min-version)
+  - [`x-sap-ord-id`](#x-sap-ord-id)
 - [Defined JSON Schema Extensions](#defined-json-schema-extensions)
   - [`x-key`](#x-key)
   - [`x-sap-odm-entity-name`](#x-sap-odm-entity-name)
@@ -97,13 +98,13 @@ interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
 ## Terminology
 
-The CloudEvents specification for SAP ecosystem and the AsyncAPI specification for SAP ecosystem are based on the open standards CloudEvents 1.0 and AsyncAPI 2.0. Both standards use a different terminology and the following mapping applies:
+The CloudEvents specification for SAP ecosystem and the AsyncAPI specification for SAP ecosystem are based on the open standards CloudEvents 1.0 and AsyncAPI 2.0.0. Both standards use a different terminology and the following mapping applies:
 
-|CloudEvents specification for SAP ecosystem|AsyncAPI specification for SAP ecosystem|
-|---|---|
-|Event|[Message](https://www.asyncapi.com/docs/reference/specification/v2.0.0#definitionsMessage)|
-|Event Context|[Message Header](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)|
-|Event Data|[Message Payload](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)|
+|CloudEvents specification for SAP ecosystem| AsyncAPI specification for SAP ecosystem                                                     |
+|---|----------------------------------------------------------------------------------------------|
+|Event| [Message](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#definitionsMessage)    |
+|Event Context| [Message Header](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)  |
+|Event Data| [Message Payload](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#messageObject) |
 
 Documents following the AsyncAPI specification for SAP ecosystem are also referred to as _event catalogs_ or _event catalog documents_ in the following.
 
@@ -111,13 +112,13 @@ The primary aim of this specification is to allow producing applications to docu
 
 ## Specification
 
-An event catalog document MUST always be a valid AsyncAPI 2.0 document. All normative statements from the AsyncAPI 2.0 specification apply. This specification defines additional and more specific normative statements on individual object and field level which are defined below.
+An event catalog document MUST always be a valid AsyncAPI 2.0.0 document. All normative statements from the AsyncAPI 2.0.0 specification apply. This specification defines additional and more specific normative statements on individual object and field level which are defined below.
 
 An event catalog document according to this specification MUST only be used to describe events that follow the CloudEvents specification for SAP ecosystem.
 
-Event catalog documents MUST NOT be used to describe any other asynchronous API. Instead, regular AsyncAPI 2.0 documents SHOULD be used to describe those (in this case, the [`servers`](#servers) field SHOULD be completed to indicate the intermediary providing the described events).
+Event catalog documents MUST NOT be used to describe any other asynchronous API. Instead, regular AsyncAPI 2.0.0 documents SHOULD be used to describe those (in this case, the [`servers`](#servers) field SHOULD be completed to indicate the intermediary providing the described events).
 
-### [AsyncAPI Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#A2SObject)
+### [AsyncAPI Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#A2SObject)
 
 #### `asyncapi`
 
@@ -128,7 +129,7 @@ The `asyncapi` field MUST be set to the value `2.0.0`.
 The `id` field SHOULD NOT be set in this version of the specification as it might be
 used in a later version. A consumer of the event catalog document therefore MUST NOT expect the `id` field to be defined or to transport any semantics if it is defined.
 
-#### [`info`](https://www.asyncapi.com/docs/reference/specification/v2.0.0#infoObject)
+#### [`info`](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#infoObject)
 
 ##### `version`
 
@@ -136,11 +137,11 @@ The `version` MUST reflect the version of the catalog document according to the 
 
 ##### `title`
 
-The `title` is displayed by the SAP Business Accelerator Hub and MUST adhere to the constraints defined for `title` in the ORD Document's [`Event Resource`](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource), including the  [SAP Core Policy Level (v1.0)](https://open-resource-discovery.github.io/specification/spec-extensions/policy-levels/sap-core-v1#title-constraints).
+The `title` is displayed by the SAP Business Accelerator Hub and MUST adhere to the constraints defined for `title` in the ORD Document's [`Event Resource`](https://open-resource-discovery.org/spec-v1/interfaces/Document#event-resource), including the  [SAP Core Policy Level (v1.0)](https://open-resource-discovery.org/spec-extensions/policy-levels/sap-core-v1#title-constraints).
 
 ##### `description`
 
-The `description` is displayed by the SAP Business Accelerator Hub and MUST adhere to the constraints defined for `description` in the ORD Document's [`Event Resource`](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource), including the  [SAP Core Policy Level (v1.0)](https://open-resource-discovery.github.io/specification/spec-extensions/policy-levels/sap-core-v1#description-constraints).
+The `description` is displayed by the SAP Business Accelerator Hub and MUST adhere to the constraints defined for `description` in the ORD Document's [`Event Resource`](https://open-resource-discovery.org/spec-v1/interfaces/Document#event-resource), including the  [SAP Core Policy Level (v1.0)](https://open-resource-discovery.org/spec-extensions/policy-levels/sap-core-v1#description-constraints).
 
 #### `servers`
 
@@ -177,11 +178,11 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on catalo
 
 The [`x-sap-shortText`](#x-sap-shorttext-1) extension MAY be provided.
 
-### [Channels Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#channelsObject)
+### [Channels Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#channelsObject)
 
 The Channels Object MUST include a [Channel Item Object](#channel-item-object) for every produced or consumed event. The channel name SHOULD reflect the path to which the event is published or it is consumed from. If no real path is available, the CloudEvent `type` MAY be used.
 
-### [Channel Item Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#channelItemObject)
+### [Channel Item Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#channelItemObject)
 
 #### `subscribe`
 
@@ -189,15 +190,15 @@ The `subscribe` field is REQUIRED for every event actively **produced** (please 
 
 #### `publish`
 
-The `publish` field MAY be used to indicate that the application itself **consumes** an event (please note that the direction here may be counter-intuitive to some). Is uses an [Operation Object](#operation-object).
+The `publish` field MAY be used to indicate that the application itself **consumes** an event (please note that the direction here may be counter-intuitive to some). It uses an [Operation Object](#operation-object).
 
-### [Operation Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#operationObject)
+### [Operation Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#operationObject)
 
 #### `message`
 
 The `message` field is REQUIRED. Events MUST NOT be defined directly in the `message` field. Instead, the definition MUST be referenced via `$ref` from the [`messages`](#messages) field of the [Components Object](#components-object).
 
-### [Components Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#componentsObject)
+### [Components Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#componentsObject)
 
 #### `messages`
 
@@ -207,9 +208,9 @@ The `messages` field is REQUIRED. All events MUST be defined via a [Message Obje
 
 #### `schemas`
 
-The `schemas` field is OPTIONAL. Primary expected usage is to define [Schema Objects](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) describing event data which are referenced from the Message Object's [payload](#payload) field.
+The `schemas` field is OPTIONAL. Primary expected usage is to define [Schema Objects](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) describing event data which are referenced from the Message Object's [payload](#payload) field.
 
-### [Message Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)
+### [Message Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#messageObject)
 
 The Message Object MUST correctly describe an event with event context and event data as mandated by the CloudEvents specification for SAP ecosystem.
 
@@ -240,13 +241,13 @@ After dereferencing the `$ref` pointers and applying the [message traits](#trait
 
 #### `payload`
 
-The `payload` field MUST be used to describe the event data. The event data MAY be defined directly in the `payload` field or the `payload` field MAY reference a [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Component Object's [`schemas`](#schemas) field.
+The `payload` field MUST be used to describe the event data. The event data MAY be defined directly in the `payload` field or the `payload` field MAY reference a [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Component Object's [`schemas`](#schemas) field.
 
 See [Defined JSON Schema Extensions](#defined-json-schema-extensions) for extensions that MAY be used in the Schema Object.
 
 #### `traits`
 
-The `traits` field MAY be used to apply message traits to the event in order to to add groups of attributes that are common to multiple events. This is RECOMMENDED for the standard CloudEvents context attributes of the CloudEvents specification for SAP ecosystem that are common to multiple events in the catalog. See the [Message Trait Object](#message-trait-object) for details and a template for a Message Trait Object defining the standard CloudEvents context attributes.
+The `traits` field MAY be used to apply message traits to the event in order to add groups of attributes that are common to multiple events. This is RECOMMENDED for the standard CloudEvents context attributes of the CloudEvents specification for SAP ecosystem that are common to multiple events in the catalog. See the [Message Trait Object](#message-trait-object) for details and a template for a Message Trait Object defining the standard CloudEvents context attributes.
 
 #### `x-sap-event-spec-version`
 
@@ -272,11 +273,11 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on messag
 
 The [`x-sap-event-version`](#x-sap-event-version-1) extension MUST be provided if applicable.
 
-### [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageTraitObject)
+### [Message Trait Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#messageTraitObject)
 
 A Message Trait Object MAY be applied to [Message Objects](#message-object). All attributes of the Message Trait Object are then added to the referencing Message Object.
 
-> **WARNING** :warning:: Please be aware that the inheritance behavior of traits in the AsyncAPI 2.0 specification is potentially counter-intuitive:
+> **WARNING** :warning:: Please be aware that the inheritance behavior of traits in the AsyncAPI 2.0.0 specification is potentially counter-intuitive:
 > A trait will overwrite everything that is already in the message. The trait is therefore more "specific" than the message it is applied to.
 >
 > Effectively this means that the trait **can not provide default values**, e.g. via `const`.
@@ -381,7 +382,7 @@ It is RECOMMENDED to add further context attributes that are present in every de
 
 ## Defined Specification Extensions
 
-This specification defines additional extensions according to the rules given in [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v2.0.0#specificationExtensions) of the AsyncAPI 2.0 specification. Defined extensions start with a `x-sap-` prefix. The description of the extensions include their applicability.
+This specification defines additional extensions according to the rules given in [Specification Extensions](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#specificationExtensions) of the AsyncAPI 2.0.0 specification. Defined extensions start with a `x-sap-` prefix. The description of the extensions include their applicability.
 
 To add new SAP defined extensions to this specification, please create a new [issue](https://github.com/SAP/asyncapi-specification/issues/new).
 
@@ -541,7 +542,7 @@ Examples:
 
 ```json
 "x-sap-event-characteristics": {
-  "instance-identification": "TO BE DEFINED", 
+  "instance-identification": "key-subject", 
   "sequencing": "instance-precedence", 
   "state-transfer": "full-after-image" 
 }
@@ -574,13 +575,13 @@ Examples:
 ### `x-sap-ord-id`
 
 - Type: `String`
-- Format: Valid [ORD ID for Event Resources](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource_ordid)
+- Format: Valid [ORD ID for Event Resources](https://open-resource-discovery.org/spec-v1/interfaces/Document#event-resource_ordid)
 - Used at: [AsyncAPI Object](#asyncapi-object)
 - Description: The ORD ID can be used to lookup more high-level metadata via Business Accelerator Hub or Unified Customer Landscape. It is also used when describing Integration Dependencies to indicate event subscriptions.
 
 Constraints:
 
-- MUST be a valid [ORD ID](https://open-resource-discovery.org/spec-v1#ord-id) that has been used to publish the AsyncAPI document as [Event Resource](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource_ordid).
+- MUST be a valid [ORD ID](https://open-resource-discovery.org/spec-v1#ord-id) that has been used to publish the AsyncAPI document as [Event Resource](https://open-resource-discovery.org/spec-v1/interfaces/Document#event-resource_ordid).
   - Regexp: `^([a-z0-9]+(?:[.][a-z0-9]+)*):(eventResource):([a-zA-Z0-9._\-]+):(v0|v[1-9][0-9]*)$`
 
 Examples:
@@ -642,7 +643,7 @@ Constraints:
 
 - OPTIONAL
 - REQUIRED for publication at SAP Business Accelerator Hub
-- MUST adhere to the constraints defined for `shortDescription` in the ORD Document's [`Event Resource`](https://open-resource-discovery.github.io/specification/spec-v1/interfaces/document#event-resource), including the  [SAP Core Policy Level (v1.0)](https://open-resource-discovery.github.io/specification/spec-extensions/policy-levels/sap-core-v1#short-description-constraints)
+- MUST adhere to the constraints defined for `shortDescription` in the ORD Document's [`Event Resource`](https://open-resource-discovery.org/spec-v1/interfaces/Document#event-resource), including the  [SAP Core Policy Level (v1.0)](https://open-resource-discovery.org/spec-extensions/policy-levels/sap-core-v1#short-description-constraints)
 
 ### `x-sap-software-min-version`
 
@@ -656,12 +657,12 @@ Constraints:
 
 ## Defined JSON Schema Extensions
 
-This specification defines additional keywords for the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) used to describe the [`payload`](#payload) of the [Message Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject).
+This specification defines additional keywords for the [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) used to describe the [`payload`](#payload) of the [Message Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#messageObject).
 
 ### `x-key`
 
 - Type: `Array`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
 - Description: Extension describing the primary identifier of the business object.
 - Items:
   - Type: `String`
@@ -708,7 +709,7 @@ Example:
 ### `x-sap-odm-entity-name`
 
 - Type: `String`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
 - Description: Name of an ODM entity as a general concept, not a concrete version thereof.
 The annotated schema is one of many representations of the ODM entity. Annotating the schema with this term helps consumers find APIs that process or expose the same entity.
 
@@ -748,7 +749,7 @@ Example:
 ### `x-sap-odm-oid-reference-entity-name`
 
 - Type: `String`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
 - Description: An extension to specify the ODM entity name of the referenced entity if required. The extension is to be used on property level and the value must be the valid entity name.
 
 Constraints:
@@ -788,7 +789,7 @@ The `x-sap-odm-oid-reference-entity` custom field points to the ODM entity `Refe
 ### `x-sap-dpp-entity-semantics`
 
 - Type: `String`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
 - Description: Primary meaning of the personal data in the annotated event. Events annotated with `x-sap-dpp-entity-semantics` are indicating that at least one property of the event data does contain an `x-sap-dpp-is-potentially-personal` annotation.
 - Allowed Values:
   - `sap:DataSubject`: Describes a data subject, for example, a customer or vendor.
@@ -841,7 +842,7 @@ An example using multiple DPP-related annotations:
 ### `x-sap-dpp-data-subject-role`
 
 - Type: `String`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
 - Description: Role of the data subject represented in the event data (e.g. employee, customer). Values are application-specific.
 
 Constraints:
@@ -851,7 +852,7 @@ Constraints:
 ### `x-sap-dpp-data-subject-role-description`
 
 - Type: `String`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload)
 - Description: Description of the role of the data subject represented in the event data (e.g. employee, customer). Values are application-specific.
 
 Constraints:
@@ -861,7 +862,7 @@ Constraints:
 ### `x-sap-dpp-field-semantics`
 
 - Type: `String`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) that describes the event data properties. Also referenced by the event's `dataschema`
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) that describes the event data properties. Also referenced by the event's `dataschema`
 - Description: Primary meaning of the personal data contained in the value of the annotated property for the event data. Use this annotation also on properties that are already marked as contact or address data. Properties annotated with `x-sap-dpp-field-semantics` SHOULD NOT be additionally annotated with `x-sap-dpp-is-potentially-personal`.
 - Allowed Values:
   - `sap:DataSubjectID`: Identifies the data subject unique key or references it.
@@ -883,7 +884,7 @@ Constraints:
 ### `x-sap-dpp-is-potentially-personal`
 
 - Type: `Boolean`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) that describes the event data properties. Also referenced by the event's `dataschema`
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) that describes the event data properties. Also referenced by the event's `dataschema`
 - Description: Property contains potentially personal data. Properties annotated with `x-sap-dpp-field-semantics` SHOULD NOT be additionally annotated with this extension. Personal data describes any information which is related to an identified or identifiable natural person (data subject). An identifiable person is one who can be identified, directly or indirectly, in particular by a reference to an identifier such as a name, an identification number, location data, an online identifier, or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural, or social identity of that natural person.
 
 Constraints:
@@ -896,7 +897,7 @@ Constraints:
 ### `x-sap-dpp-is-potentially-sensitive`
 
 - Type: `Boolean`
-- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) that describes the event data properties. Also referenced by the event's `dataschema`
+- Used at: [Schema Object](https://v2.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) that describes the event data properties. Also referenced by the event's `dataschema`
 - Description: Property contains potentially sensitive personal data. Sensitive personal data is a category of personal data that needs special handling. The determination which personal data is sensitive may differ for different legal areas or industries. 
 
   Examples of sensitive personal data: 
@@ -1138,4 +1139,4 @@ We as members, contributors, and leaders pledge to make participation in our com
 
 ## Licensing
 
-Copyright 2026 SAP SE or an SAP affiliate company and asyncapi-specification-for-sap-ecosystem contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/asyncapi-specification).
+Copyright 2026 SAP SE or an SAP affiliate company and @sap/asyncapi-specification contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/asyncapi-specification).

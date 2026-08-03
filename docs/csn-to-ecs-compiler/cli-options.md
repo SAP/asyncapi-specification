@@ -1,4 +1,4 @@
-# # CDS CSN to AsyncAPI specification for SAP ecosystem Mapping - CLI Usage and Options
+# CDS CSN to AsyncAPI specification for SAP ecosystem Mapping - CLI Usage and Options
 
 Base command is:
 
