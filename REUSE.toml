@@ -27,7 +27,7 @@ parties the right to use of access any SAP External Product, through API Calls.
 """
 
 [[annotations]]
-path = ["**"]
+path = "**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 SAP SE or an SAP affiliate company and @sap/asyncapi-specification contributors"
 SPDX-License-Identifier = "Apache-2.0"
