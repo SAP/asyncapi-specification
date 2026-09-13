@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["before 6am on monday"],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "addLabels": ["renovate"],
+  "lockFileMaintenance": { "enabled": false },
+  "packageRules": [
+    {
+      "description": "Group non-major tooling updates",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "tooling (non-runtime)",
+      "minimumReleaseAge": "3 days",
+      "automerge": true
+    },
+    {
+      "description": "Major updates need human review",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["needs-review"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "description": "Apply security fixes without delay",
+    "groupName": "SECURITY",
+    "minimumReleaseAge": null,
+    "labels": ["security", "priority"],
+    "automerge": true,
+    "schedule": ["at any time"],
+    "prCreation": "immediate"
+  }
+}
