@@ -1615,6 +1615,11 @@
               "type": "string",
               "pattern": "^[Dd][Ee][Pp][Rr][Ee][Cc][Aa][Tt][Ee][Dd]$",
               "description": "Indicates the lifecycle status of the event or event catalog."
+            },
+            {
+              "type": "string",
+              "pattern": "^[Dd][Ee][Vv][Ee][Ll][Oo][Pp][Mm][Ee][Nn][Tt]$",
+              "description": "Indicates the lifecycle status of the event or event catalog."
             }
           ]
         },
