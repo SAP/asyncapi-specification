@@ -2,6 +2,10 @@
 
 All notable changes to the AsyncAPI specification for SAP ecosystem are documented in this file.
 
+## [unreleased]
+
+* Added the [`x-sap-ai-hint`](README.md#x-sap-ai-hint-json-schema-extension) extension (catalog/info level, message level, and JSON Schema payload level)
+
 ## [1.2.16]
 
 ### Added

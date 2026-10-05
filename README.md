@@ -32,6 +32,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
     - [`x-sap-ord-id`](#x-sap-ord-id)
     - [`x-sap-stateInfo`](#x-sap-stateinfo)
     - [`x-sap-shortText`](#x-sap-shorttext)
+    - [`x-sap-ai-hint` (info level)](#x-sap-ai-hint-info-level)
   - [Channels Object](#channels-object)
   - [Channel Item Object](#channel-item-object)
     - [`subscribe`](#subscribe)
@@ -52,6 +53,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
     - [`x-sap-event-characteristics`](#x-sap-event-characteristics)
     - [`x-sap-stateInfo`](#x-sap-stateinfo-1)
     - [`x-sap-event-version`](#x-sap-event-version)
+    - [`x-sap-ai-hint` (message level)](#x-sap-ai-hint-message-level)
   - [Message Trait Object](#message-trait-object)
     - [`CloudEventsContext.v1` messageTrait Template](#cloudeventscontextv1-messagetrait-template)
 - [Defined Specification Extensions](#defined-specification-extensions)
@@ -68,6 +70,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
   - [`x-sap-event-version`](#x-sap-event-version-1)
   - [`x-sap-shortText`](#x-sap-shorttext-1)
   - [`x-sap-software-min-version`](#x-sap-software-min-version)
+  - [`x-sap-ai-hint` (Specification Extension)](#x-sap-ai-hint-specification-extension)
 - [Defined JSON Schema Extensions](#defined-json-schema-extensions)
   - [`x-key`](#x-key)
   - [`x-sap-odm-entity-name`](#x-sap-odm-entity-name)
@@ -78,6 +81,7 @@ It is RECOMMENDED to first get familiar with AsyncAPI 2.0.
   - [`x-sap-dpp-field-semantics`](#x-sap-dpp-field-semantics)
   - [`x-sap-dpp-is-potentially-personal`](#x-sap-dpp-is-potentially-personal)
   - [`x-sap-dpp-is-potentially-sensitive`](#x-sap-dpp-is-potentially-sensitive)  
+  - [`x-sap-ai-hint` (JSON Schema Extension)](#x-sap-ai-hint-json-schema-extension)
 - [Event Catalog Compatibility, Versioning and Lifecycle](#event-catalog-compatibility-versioning-and-lifecycle)
   - [Compatibility and Versioning](#compatibility-and-versioning)
     - [Patch Changes](#patch-changes)
@@ -177,6 +181,10 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on catalo
 
 The [`x-sap-shortText`](#x-sap-shorttext-1) extension MAY be provided.
 
+#### `x-sap-ai-hint` (info level)
+
+The [`x-sap-ai-hint`](#x-sap-ai-hint-json-schema-extension) extension MAY be provided to describe the event catalog to AI consumers.
+
 ### [Channels Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#channelsObject)
 
 The Channels Object MUST include a [Channel Item Object](#channel-item-object) for every produced or consumed event. The channel name SHOULD reflect the path to which the event is published or it is consumed from. If no real path is available, the CloudEvent `type` MAY be used.
@@ -271,6 +279,10 @@ The [`x-sap-stateInfo`](#x-sap-stateinfo-2) extension MUST be provided on messag
 #### `x-sap-event-version`
 
 The [`x-sap-event-version`](#x-sap-event-version-1) extension MUST be provided if applicable.
+
+#### `x-sap-ai-hint` (message level)
+
+The [`x-sap-ai-hint`](#x-sap-ai-hint-json-schema-extension) extension MAY be provided to describe the event to AI consumers.
 
 ### [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageTraitObject)
 
@@ -654,6 +666,24 @@ Constraints:
 
 - OPTIONAL
 
+### `x-sap-ai-hint` (Specification Extension)
+
+- Type: `String`
+- Used at: [AsyncAPI Object](#asyncapi-object) (catalog/`info` level), [Message Object](#message-object)
+- Description: Provides a hint for AI consumers (e.g., LLMs) on how to use or interpret the annotated element. Intentionally kept separate from human-readable `description` fields so that end-user-facing documentation and AI-targeted guidance can evolve independently.
+
+`x-sap-ai-hint` adds AI-specific context that would clutter or be out of place in the human-facing `description`: routing guidance, preconditions, side effects, related events, or disambiguation against similar events.
+
+A proper human-readable `description` SHOULD still be provided — `x-sap-ai-hint` complements it, it does not replace it.
+
+The content should be optimized for an AI agent that needs to decide *whether* and *how* to consume or react to the event — not for a developer reading reference docs.
+
+Constraints:
+
+- OPTIONAL
+
+See also: [Defined JSON Schema Extensions — `x-sap-ai-hint`](#x-sap-ai-hint-json-schema-extension) for applying AI hints to individual payload properties.
+
 ## Defined JSON Schema Extensions
 
 This specification defines additional keywords for the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) used to describe the [`payload`](#payload) of the [Message Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#messageObject).
@@ -911,6 +941,73 @@ Constraints:
 - Default: `true`
 - MUST NOT be used if value is `false`
 - MUST NOT be combined with `x-sap-dpp-is-potentially-personal` for the same property
+
+### `x-sap-ai-hint` (JSON Schema Extension)
+
+- Type: `String`
+- Used at: [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.0.0#schemaObject) of the Message [`payload`](#payload) — at the top-level payload schema and at individual property sub-schemas
+- Description: Provides a hint for AI consumers (e.g., LLMs) on how to use or interpret the annotated payload schema or property. Intentionally kept separate from human-readable `description` fields so that end-user-facing documentation and AI-targeted guidance can evolve independently.
+
+Constraints:
+
+- OPTIONAL
+
+#### Best practices
+
+Unlike human-facing descriptions, `x-sap-ai-hint` can be explicit about value semantics, constraints, and context that would clutter end-user documentation. Focus on what an AI agent needs to understand the event payload — either to interpret incoming events or to reason about the data.
+
+Some useful things to include, depending on the element:
+
+- **Business context** — what business activity or domain concept the schema or property represents
+- **Format and value constraints** — coding standards (ISO, internal enums, picklists), valid value ranges, what happens on invalid values
+- **Disambiguation** — when a field name is misleading or overlaps with something similar elsewhere
+- **Semantic relationships** — how this property relates to other fields in the same event or to business objects in other APIs
+- **When NOT to use** — especially useful when multiple events or schemas cover overlapping domains; stating the boundary explicitly helps agents route correctly
+
+Structure `x-sap-ai-hint` values using **lightweight, semantically structured Markdown**:
+
+- **Use consistent labels** — e.g., **Format:**, **When NOT to use:** — so AI systems can extract meaning beyond visual formatting.
+- **Keep content atomic** — one idea per bullet or line; avoid long prose paragraphs.
+- **Reuse patterns across events** — predictability across event schemas matters more than stylistic variation.
+- **Lightweight Markdown only** — bullets, bold labels, `inline code` for fields and identifiers. Avoid tables and deep nesting.
+
+See also: [Defined Specification Extensions — `x-sap-ai-hint`](#x-sap-ai-hint-specification-extension) for applying AI hints at the catalog or message level.
+
+#### Example
+
+```json
+{
+  "components": {
+    "messages": {
+      "sap.s4.beh.SalesOrder.Created.v1": {
+        "name": "sap.s4.beh.SalesOrder.Created.v1",
+        "x-sap-ai-hint": "Signals that a new sales order has been created. Subscribe to this event to trigger downstream fulfillment or notification workflows. Does not indicate order confirmation — listen for sap.s4.beh.SalesOrder.Confirmed.v1 before assuming inventory is reserved.",
+        "payload": {
+          "$ref": "#/components/schemas/sap.s4.beh.SalesOrder.Created.v1"
+        }
+      }
+    },
+    "schemas": {
+      "sap.s4.beh.SalesOrder.Created.v1": {
+        "type": "object",
+        "x-sap-ai-hint": "Header data for a newly created sales order. The status field uses integer codes — see SalesOrderStatus for the enum mapping. Currency fields always carry ISO 4217 three-letter codes.",
+        "properties": {
+          "SalesOrder": {
+            "type": "string",
+            "description": "Sales order identifier.",
+            "x-sap-ai-hint": "Unique identifier of the sales order. Use this value to fetch line items and status via the Sales Order API."
+          },
+          "TransactionCurrency": {
+            "type": "string",
+            "description": "Currency of the order.",
+            "x-sap-ai-hint": "ISO 4217 three-letter currency code (e.g. USD, EUR). Never a symbol."
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## Event Catalog Compatibility, Versioning and Lifecycle
 
